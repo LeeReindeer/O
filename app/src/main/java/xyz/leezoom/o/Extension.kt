@@ -55,6 +55,7 @@ fun Activity.saveImageToDir(bitmap: Bitmap, dir:String){
         out.close()
     }catch (e: Exception){
         save = false
+        Toast.makeText(applicationContext, e.localizedMessage, Toast.LENGTH_SHORT).show()
         e.printStackTrace()
     }
 

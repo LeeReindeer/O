@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -16,10 +17,12 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.RelativeLayout
 import android.widget.SeekBar
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import xyz.leezoom.o.view.OImageView
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     val TAG = "MainActivity"
@@ -43,9 +46,10 @@ class MainActivity : AppCompatActivity() {
         preference = getSharedPreferences("OFUCK", MODE_PRIVATE)
         val lastImage = preference!!.getString(pTag, "")
         if (lastImage.isNotEmpty()) {
-            imageUri = Uri.parse(lastImage)
-            //loadImage(lastImage)
-            loadImageFromUri(imageUri!!)
+            imagePath = lastImage
+            loadImage(lastImage)
+            //imageUri = Uri.parse(lastImage)
+            //loadImageFromUri(imageUri!!)
             showView(LOADED_IMAGE)
         }
     }
@@ -93,11 +97,12 @@ class MainActivity : AppCompatActivity() {
         when(requestCode) {
             REQUEST_PICK_PICTURE -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                pickUpPicture()
+                    pickUpPicture()
+                } else {
+                    toast("Permission denied.")
                 }
             }
             else -> {
-                toast("Permission denied.")
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             }
         }
@@ -107,7 +112,8 @@ class MainActivity : AppCompatActivity() {
     private fun pickUpPicture() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_PICK_PICTURE)
+            //requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_PICK_PICTURE)
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, REQUEST_PICK_PICTURE)
         } else {
             Log.d("image", "pick")
             val intent = Intent(Intent.ACTION_PICK)
@@ -120,36 +126,37 @@ class MainActivity : AppCompatActivity() {
         when(requestCode) {
             REQUEST_PICK_PICTURE -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    //imagePath = getRealPathFromURI(data.data)
-                    val uri: Uri = data.data
-                    //saveImagePath(imagePath)
-                    //loadImage(imagePath)
-                    Log.d(TAG, uri.toString())
-                    saveImageUri(uri)
-                    loadImageFromUri(uri)
+                    imagePath = getRealPathFromURI(data.data)
+                    //val uri: Uri = data.data
+                    saveImagePath(imagePath)
+                    loadImage(imagePath)
+                    Log.d(TAG, imagePath)
+                    //saveImageUri(uri)
+                    //loadImageFromUri(uri)
                     showView(LOADED_IMAGE)
                 }
             }
         }
     }
 
-    /*
+
     private fun saveImagePath(path: String) {
         preference = getSharedPreferences("OFUCK", MODE_PRIVATE)
         var editor :SharedPreferences.Editor = preference!!.edit()
         editor.putString(pTag, path)
         editor.apply()
     }
-*/
-    /*
+
+
     private fun loadImage(path: String) {
         Glide.with(this)
                 .load(path)
                 .asBitmap()
                 .skipMemoryCache(true)
                 .into(photo_view)
-    }*/
+    }
 
+    /*
     private fun saveImageUri(uri: Uri) {
         preference = getSharedPreferences("OFUCK", MODE_PRIVATE)
         var editor :SharedPreferences.Editor = preference!!.edit()
@@ -159,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadImageFromUri(uri: Uri) {
         photo_view.setImageURI(uri)
-    }
+    }*/
 
     private fun showView(state: Int) {
         when(state) {
@@ -200,7 +207,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.save_menu -> {
                 Log.d(TAG, "save")
-                if (imageUri.toString().isNotEmpty()) {
+                if (imagePath.isNotEmpty()) {
                     saveImageToDir(getViewBitmap(photo_view), APP_DIR)
                 } else {
                     toast(getString(R.string.hint_select_image))
@@ -212,6 +219,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getRealPathFromURI(contentURI: Uri): String {
+        val result: String
+        val cursor = contentResolver.query(contentURI, null, null, null, null)
+        if (cursor == null) {
+            // Source is Dropbox or other similar local file path
+            result = contentURI.path
+        } else {
+            cursor.moveToFirst()
+            val idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+//        return File(result).absolutePath
+        return result
     }
 }
 
