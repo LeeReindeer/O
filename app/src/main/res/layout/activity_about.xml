@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Lee.
+  ~ Copyright (c) 2017. All rights reserved.
+  ~
+  ~ Last modified 9/11/17 4:25 PM
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/about_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="@android:color/white"
+            app:layout_scrollFlags="enterAlways|snap"
+            app:title="About"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginTop="64dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/about_icon"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginLeft="16dp"
+                android:src="@mipmap/ic_launcher_round"/>
+
+            <TextView
+                android:id="@+id/about_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="serif-monospace"
+                tools:text="v1.4.2-beta" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/about_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            android:fontFamily="serif-monospace"
+            android:text="@string/about_text" />
+
+        <TextView
+            android:id="@+id/about_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="serif-monospace"
+            android:textSize="15sp"
+            android:textColor="@color/colorLink"
+            android:text="@string/about_page"/>
+
+        <TextView
+            android:id="@+id/about_me"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="serif-monospace"
+            android:textSize="15sp"
+            android:textColor="@color/colorLink"
+            android:text="@string/about_me" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">方圆</string>
+    <string name="hint_click_me">点击选择图片</string>
+    <string name="button_circle">圆</string>
+    <string name="button_rect">方</string>
+    <string name="hint_white_width">留白</string>
+    <string name="hint_press_again">再按一次退出</string>
+    <string name="hint_save">保存</string>
+    <string name="hint_about">关于</string>
+    <string name="hint_select_image">请先选择图片×.×</string>
+    <string name="hint_open">打开</string>
+    <string name="hint_save_fail">保存失败</string>
+    <string name="about_text">方圆</string>
+    <string name="about_me">和我尴聊</string>
+</resources>

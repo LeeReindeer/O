@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">O</string>
+
+    <string name="button_circle">Circle</string>
+    <string name="button_rect">Rect</string>
+
+    <string name="hint_click_me">Click me</string>
+    <string name="hint_white_width">White width</string>
+    <string name="hint_press_again">Press again to exit</string>
+    <string name="hint_save">Save</string>
+    <string name="hint_about">About</string>
+    <string name="hint_select_image">Please select image first</string>
+    <string name="hint_open">Open</string>
+    <string name="hint_save_fail">Save failed</string>
+    <string name="about_text">This is O.</string>
+    <string name="about_page" translatable="false">Github:\nhttps://github.com/LeeReindeer/O/</string>
+    <string name="about_license" translatable="false">License</string>
+    <string name="about_me">Contact me:\nhttps://t.me/LeeReindeer</string>
+</resources>
