@@ -16,7 +16,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -26,7 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.+'
-    implementation 'com.android.support:design:26.+'
+    //implementation 'com.android.support:design:26.+'
 
     compile "org.jetbrains.anko:anko-common:$anko_version"
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
