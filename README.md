@@ -2,6 +2,10 @@
 
 > inspire by [Ocamera](https://www.coolapk.com/apk/com.qinlin.ocamera).
 
+## Download
+
+[Coolapk](https://www.coolapk.com/apk/xyz.leezoom.o/)
+
 ## Attributions
 
 [Attributions](https://github.com/LeeReindeer/O/blob/master/ATTRIBUTIONS.md)
